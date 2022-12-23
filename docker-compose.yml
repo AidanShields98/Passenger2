@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - "//%cd%:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+    networks:
+      - db
+  server:
+    image: aidans325/passenger
+    ports:
+      - "8081:8081"
+    environment:
+      - spring.datasource.url=jdbc:postgresql://db:5432/postgres
+    networks:
+      - db
+    depends_on:
+      - db
+
+networks:
+  db:
