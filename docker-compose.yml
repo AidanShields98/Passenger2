@@ -13,7 +13,7 @@ services:
     networks:
       - db
   server:
-    image: aidans325/
+    image: aidans325/passenger
     ports:
       - "8081:8081"
     environment:
